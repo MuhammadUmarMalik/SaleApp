@@ -2,10 +2,13 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
+import { ProductsModule } from './products/products.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Order } from './orders/order.entity';
-import { Product } from './orders copy/product.entity';
+import { Product } from './products/product.entity';
+import { OrdersModule } from './orders/orders.module';
+
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -18,7 +21,10 @@ import { Product } from './orders copy/product.entity';
     entities: [User,Order,Product],
     synchronize: true,
   }),
-    UsersModule],
+    UsersModule,
+    ProductsModule,
+    OrdersModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
