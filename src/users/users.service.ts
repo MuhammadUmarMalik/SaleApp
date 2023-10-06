@@ -11,7 +11,7 @@ export class UsersService {
 
     create(name:string,address:string,email:string,password:string,phone_number:string){
         const user=this.repo.create({name,address,email,password,phone_number})
-
+        console.log(this.repo)
         return this.repo.save(user)
     }
     findOne( id : number ){
