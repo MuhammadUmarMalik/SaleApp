@@ -8,11 +8,12 @@ import { Product } from './products/product.entity';
 import { OrdersModule } from './orders/orders.module';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
-
+import * as dotenv from 'dotenv'
+import { ConfigModule } from '@nestjs/config';
 @Module({
 
   imports: [
-   
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
