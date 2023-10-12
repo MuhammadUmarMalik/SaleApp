@@ -7,7 +7,7 @@ export class Product{
     id:number;
 
     @Column()
-    name:string;
+    productName:string;
 
     @Column()
     category:string;
@@ -16,7 +16,7 @@ export class Product{
     price:number;
 
     @Column()
-    retail_price:number;
+    retail:number;
 
     @Column()
     quantity:number;

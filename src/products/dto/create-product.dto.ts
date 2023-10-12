@@ -2,13 +2,13 @@ import { IsCurrency, IsEmail,IsString, IsNumber} from "class-validator";
 
 export class CreateProductDto{
     @IsString()
-    name:string
-    @IsEmail()
+    productName:string
+    @IsString()
     category:string
-    @IsCurrency()
+    @IsNumber()
     price:number
-    @IsCurrency()
-    retail_price:number
+    @IsNumber()
+    retail:number
     @IsNumber()
     quantity:number
 }

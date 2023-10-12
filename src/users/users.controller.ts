@@ -1,6 +1,6 @@
 import { AuthService } from './auth.service';
 
-import { Body,Controller, Post,Get,Patch,Delete,Param,Query,NotFoundException,Session} from '@nestjs/common';
+import { Body,Controller, Post,Get,Patch,Delete,Param,Query,NotFoundException,Session,UseGuards} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
@@ -8,8 +8,12 @@ import { UsersService } from './users.service';
 import { Serialize } from 'src/interceptor/serlize.interceptor';
 import { UserDto } from './dto/users.dtos';
 import { CreateSigninDto } from './dto/create-signin.dto';
+import { CurrentUser } from './decorator/current-user.decorator';
+import { AuthGuards } from 'src/guards/auth.guard';
+
 @Controller('auth')
 @Serialize(UserDto)
+
 export class UsersController {
 
     constructor(private usersService:UsersService,private authService:AuthService){}
@@ -32,17 +36,18 @@ export class UsersController {
     }
 
     @Get('/whoami')
-    whoAmI(@Session() session:any){
-        return this.usersService.findOne(session.userId)
+    @UseGuards(AuthGuards)
+    async whoAmI(@CurrentUser() user:User){
+        const response = user;
+        console.log(response);
+        
+        return response;
     }
-    @Get('/colors/color')
-    setColor(@Param('color') color:string,@Session() session:any){
-        session.color=color;
+    @Post('/signout')
+    signOut(@Session() session: any) {
+      session.userId = null;
     }
-    @Get('/color')
-    getColor(@Session() session:any){
-       return session.color
-    }
+  
 
 
     @Get('/:id')
@@ -57,21 +62,22 @@ export class UsersController {
         return user
     }
     @Get()
-    findAllUser(@Query('email') email:string)
+    async findAllUser(@Query('email') email:string)
     {
-        this.usersService.find(email)
-
+       const user = await this.usersService.find(email)
+        return user;
     }
 
     @Delete('/:id')
-    removeUser(@Param('id') id:string)
+    async removeUser(@Param('id') id:string)
     {
-        this.usersService.remove(parseInt(id));
+        const user= await this.usersService.remove(parseInt(id));
+        return user
     }
 
     @Patch('/:id')
-    updateUser(@Param('id') id:string, @Body() body:UpdateUserDto)
+    async updateUser(@Param('id') id:string, @Body() body:UpdateUserDto)
     {
-        this.usersService.update(parseInt(id),body)
+        const user = await this.usersService.update(parseInt(id),body)
     }
 }

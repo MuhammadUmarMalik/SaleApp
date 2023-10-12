@@ -19,9 +19,8 @@ export class AuthService {
     phone_number: string,
   ) {
     const users = await this.userService.find(email);
-
     if (users.length) {
-      throw new BadRequestException('Email is in use');
+      throw new BadRequestException('email in use');
     }
     //hash and user password
     //create salt

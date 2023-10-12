@@ -11,37 +11,41 @@ export class ProductsController {
     constructor(private productsService:ProductsService){}
     
     @Post('/newproduct')
-    createUser(@Body() body:CreateProductDto){
+    async createProduct(@Body() body:CreateProductDto){
       
-        this.productsService.create(body.name,body.category,body.price,body.retail_price,body.quantity)
+        const product = await this.productsService.create(body.productName,body.category,body.price,body.retail,body.quantity)
+        return product
     }
     @Get('/:id')
     
-   async findUser(@Param('id') id:string)
+   async findProduct(@Param('id') id:string)
     {
-        const user=await this.productsService.findOne(parseInt(id));
-        if(!user)
+        const product=await this.productsService.findOne(parseInt(id));
+        if(!product)
         {
-            throw new NotFoundException('User is not found')
+            throw new NotFoundException('product is not found');
         }
-        return user
+        return product;
     }
     @Get()
-    findAllUser(@Query('product_name') product_name:string)
-    {
-        this.productsService.find(product_name)
-
-    }
+//    async findAllProduct(@Query('name') name:string)
+//     {
+//         const product=await this.productsService.find(name);
+//         return product;
+//     }
 
     @Delete('/:id')
-    removeUser(@Param('id') id:string)
+    async removeProduct(@Param('id') id:string)
     {
-        this.productsService.remove(parseInt(id));
+       const product =await this.productsService.remove(parseInt(id));
+       return product;
     }
 
     @Patch('/:id')
-    updateUser(@Param('id') id:string, @Body() body:UpdateProductDto)
+    async updateProduct(@Param('id') id:string, @Body() body:UpdateProductDto)
     {
-        this.productsService.update(parseInt(id),body)
+       const product=await this.productsService.update(parseInt(id),body);
+       return product;
+
     }
 }

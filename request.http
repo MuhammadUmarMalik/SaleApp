@@ -6,12 +6,15 @@ content-type: application/json
   "email": "umarmalik1211@gmail.com",
   "password": "umar"
 }
-
+### signout user
+POST http://localhost:3000/auth/signout
 ### Find a particular user with a given ID
 GET http://localhost:3000/auth/4
+### Find a particular user with a given ID
+GET http://localhost:3000/auth/whoami
 
 ### Find all users with a given email
-GET http://localhost:3000/auth?email=umarmalik@gmail.com
+GET http://localhost:3000/auth
 
 ### Delete a user given id
 DELETE http://localhost:3000/auth/2
