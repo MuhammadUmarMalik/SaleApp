@@ -1,11 +1,13 @@
 
-import { Body,Controller, Post,Get,Patch,Delete,Param,Query,NotFoundException,UseInterceptors,ClassSerializerInterceptor} from '@nestjs/common';
+import { Body,Controller, Post,Get,Patch,Delete,Param,Query,NotFoundException,UseGuards,UseInterceptors,ClassSerializerInterceptor} from '@nestjs/common';
 ;
 import { Product } from './product.entity';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { AuthGuards } from 'src/guards/auth.guard';
 @Controller('product')
+@UseGuards(AuthGuards)
 export class ProductsController {
 
     constructor(private productsService:ProductsService){}
@@ -27,12 +29,12 @@ export class ProductsController {
         }
         return product;
     }
-    @Get()
-//    async findAllProduct(@Query('name') name:string)
-//     {
-//         const product=await this.productsService.find(name);
-//         return product;
-//     }
+    @Get('/showall')
+   async findAllProduct()
+    {
+        const product=await this.productsService.find();
+        return product;
+    }
 
     @Delete('/:id')
     async removeProduct(@Param('id') id:string)

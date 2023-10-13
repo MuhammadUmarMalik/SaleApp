@@ -17,10 +17,10 @@ export class ProductsService {
     findOne( id : number ){
         return this.repo.findOneBy({id});
     }
-    // find(name:string){
-    //     const product=this.repo.find({where:{name}});
-    //     return product;
-    // }
+    find(){
+        const product=this.repo.find();
+        return product;
+    }
     async update(id:number, attrs:Partial<Product>)
     {
         const product=await this.findOne(id);
