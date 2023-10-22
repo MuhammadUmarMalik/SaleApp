@@ -1,4 +1,5 @@
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn} from 'typeorm';
+import { Order } from 'src/orders/order.entity';
+import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,OneToMany} from 'typeorm';
 
 @Entity()
 export class Product{
@@ -20,6 +21,10 @@ export class Product{
 
     @Column()
     quantity:number;
+
+    @OneToMany(()=>Order,(order)=>order.id)
+    order:Order[];
+
 
     @AfterInsert()
     Insertlog(){

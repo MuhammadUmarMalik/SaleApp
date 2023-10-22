@@ -1,5 +1,10 @@
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn} from 'typeorm';
+
+// import { Order } from './../orders/order.entity';
+
+import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,OneToMany} from 'typeorm';
 import { Exclude } from 'class-transformer';
+
+import { Order } from 'src/orders/order.entity';
 @Entity()
 export class User{
     
@@ -21,6 +26,9 @@ export class User{
 
     @Column()
     phone_number:string;
+
+    @OneToMany(() => Order, (order) => order.id)
+    orders: Order[];
 
     @AfterInsert()
     Insertlog(){

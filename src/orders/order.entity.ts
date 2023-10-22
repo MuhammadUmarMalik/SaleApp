@@ -1,5 +1,7 @@
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn} from 'typeorm';
+import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,ManyToOne} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { User } from 'src/users/user.entity';
+import { Product } from 'src/products/product.entity';
 @Entity()
 export class Order{
     
@@ -21,6 +23,11 @@ export class Order{
     @Column()
     phone_number:string;
 
+    @ManyToOne(() => User, (user) => user.id)
+    order: Order;
+
+    @ManyToOne(()=>Product,(product)=>product.id)
+    product:Product;
     @AfterInsert()
     Insertlog(){
         console.log('Order is placed with id',this.id)

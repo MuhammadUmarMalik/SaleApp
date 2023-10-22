@@ -20,6 +20,9 @@ export class OrdersService {
     find(product_name:string){
         return this.repo.find({where:{product_name}})
     }
+    findall(){
+        return this.repo.find()
+    }
     async update(id:number, attrs:Partial<Order>)
     {
         const user=await this.findOne(id);

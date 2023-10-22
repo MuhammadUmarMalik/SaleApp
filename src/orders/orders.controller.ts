@@ -32,7 +32,11 @@ export class OrdersController {
         this.ordersService.find(product_name)
 
     }
-
+    @Get('/getallorder')
+    findAllUsers()
+    {
+        this.ordersService.findall()
+    }
     @Delete('/:id')
     removeUser(@Param('id') id:string)
     {
