@@ -11,15 +11,14 @@ export class CategoryService {
 
    async create(categoryCode:string,category:string){
         const Category=await this.repo.create({categoryCode,category})
-        console.log(this.repo)
+        console.log(Category)
         return this.repo.save(Category)
     }
     findOne( id : number ){
         return this.repo.findOneBy({id});
     }
     find(){
-        const Category=this.repo.find();
-        return Category;
+       return this.repo.find();
     }
     async update(id:number, attrs:Partial<Category>)
     {

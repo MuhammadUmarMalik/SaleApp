@@ -3,7 +3,7 @@ import { IsCurrency, IsEmail,IsString, IsNumber,IsOptional} from "class-validato
 export class UpdateCategoryDto{
     @IsString()
     @IsOptional()
-    productCode:string
+    categoryCode:string
     @IsEmail()
     @IsOptional()
     category:string

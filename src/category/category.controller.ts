@@ -15,7 +15,8 @@ export class CategoryController {
     @Post('/newcategory')
     async createCategory(@Body() body:CreateCategoryDto){
       
-        const category = await this.categoryService.create(body.productCode,body.category);
+        const category = await this.categoryService.create(body.categoryCode,body.category);
+       
         return category;
     }
     @Get('/:id')
@@ -29,7 +30,7 @@ export class CategoryController {
         }
         return product;
     }
-    @Get('/showall')
+    @Get()
    async findAllCategory()
     {
         const category=await this.categoryService.find();

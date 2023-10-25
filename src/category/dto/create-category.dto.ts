@@ -2,7 +2,7 @@ import { IsString} from "class-validator";
 
 export class CreateCategoryDto{
     @IsString()
-    productCode:string
+    categoryCode:string
     @IsString()
     category:string
    

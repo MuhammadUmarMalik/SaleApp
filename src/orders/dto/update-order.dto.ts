@@ -1,23 +1,23 @@
-import { IsEmail,IsString,IsOptional} from "class-validator";
+import { IsEmail,IsString,IsOptional, IsNumber, IsDate} from "class-validator";
 
 export class UpdateOrderDto{
     @IsString()
     @IsOptional()
-    name:string
+    product_name:string
     
     @IsEmail()
     @IsOptional()
-    email:string
+    destination:string
 
-    @IsString()
+    @IsDate()
     @IsOptional()
-    password:string
+    order_date:Date
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    address:string
+    items:number
     
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    phone_number:string
+    phone_number:number
 }

@@ -1,3 +1,5 @@
+
+import { Category } from 'src/category/category.entity';
 import { Order } from 'src/orders/order.entity';
 import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,OneToMany} from 'typeorm';
 
@@ -25,6 +27,8 @@ export class Product{
     @OneToMany(()=>Order,(order)=>order.id)
     order:Order[];
 
+    @OneToMany(()=>Category,(category)=>category.id)
+    categories:Category[];
 
     @AfterInsert()
     Insertlog(){

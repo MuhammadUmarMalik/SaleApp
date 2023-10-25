@@ -9,8 +9,8 @@ import { throwError } from 'rxjs';
 export class OrdersService {
     constructor(@InjectRepository(Order) private repo:Repository<Order>){}
 
-    create(product_name:string,destination:string,items:string){
-        const order=this.repo.create({product_name,destination,items})
+    create(product_name:string,destination:string,order_date:Date,items:number,phone_number:number){
+        const order=this.repo.create({product_name,destination,order_date,items,phone_number})
 
         return this.repo.save(order)
     }

@@ -13,7 +13,7 @@ export class OrdersController {
     @Post('/neworder')
     createUser(@Body() body:CreateOrderDto){
       
-        this.ordersService.create(body.product_name,body.destination,body.items)
+        this.ordersService.create(body.product_name,body.destination,body.order_date,body.items,body.phone_number)
     }
     @Get('/:id')
     

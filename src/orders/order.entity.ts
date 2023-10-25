@@ -18,13 +18,13 @@ export class Order{
     order_date:Date
 
     @Column()
-    items:string;
+    items:number;
 
     @Column()
-    phone_number:string;
+    phone_number:number;
 
     @ManyToOne(() => User, (user) => user.id)
-    order: Order;
+    user: User;
 
     @ManyToOne(()=>Product,(product)=>product.id)
     product:Product;

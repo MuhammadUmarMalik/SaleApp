@@ -1,5 +1,5 @@
 import { Product } from 'src/products/product.entity';
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,OneToMany} from 'typeorm';
+import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
 
 @Entity()
 export class Category{
@@ -15,8 +15,8 @@ export class Category{
 
    
 
-    @OneToMany(()=>Product,(product)=>product.id)
-    product:Product[];
+    @ManyToOne(()=>Product,(product)=>product.id)
+    product:Product;
 
 
     @AfterInsert()
