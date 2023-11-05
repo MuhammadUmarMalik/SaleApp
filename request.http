@@ -6,6 +6,18 @@ content-type: application/json
   "email": "umarmalik1211@gmail.com",
   "password": "umar"
 }
+### Signup user
+
+POST http://localhost:3000/auth/signup
+
+Content-Type:application/json
+{
+  "name": "umar",
+  "address": "chowk azam",
+  "email": "umar343@gmail.com",
+  "passwor": "admin123",
+  "phone_number": "1234567890"
+}
 ### signout user
 POST http://localhost:3000/auth/signout
 ### Find a particular user with a given ID

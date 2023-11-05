@@ -1,43 +1,65 @@
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn,ManyToOne} from 'typeorm';
+import {
+  AfterInsert,
+  AfterUpdate,
+  AfterRemove,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { User } from 'src/users/user.entity';
 import { Product } from 'src/products/product.entity';
 @Entity()
-export class Order{
-    
-    @PrimaryGeneratedColumn()
-    id:number;
+export class Order {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    product_name:string;
+  @Column()
+  product_name: string;
 
-    @Column()
-    destination:string;
+  @Column()
+  destination: string;
 
-    @Column()
-    order_date:Date
+  @Column()
+  order_date: Date;
 
-    @Column()
-    items:number;
+  @Column()
+  items: number;
 
-    @Column()
-    phone_number:number;
+  @Column()
+  phone_number: number;
 
-    @ManyToOne(() => User, (user) => user.id)
-    user: User;
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  public created_at: Date;
 
-    @ManyToOne(()=>Product,(product)=>product.id)
-    product:Product;
-    @AfterInsert()
-    Insertlog(){
-        console.log('Order is placed with id',this.id)
-    }
-    @AfterUpdate()
-    logUpdate(){
-        console.log('Order is updated with id',this.id)
-    }
-    @AfterRemove()
-    logRemove(){
-        console.log('Order is canceled with id',this.id)
-    }
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  public updated_at: Date;
+
+  @ManyToOne(() => User, (user) => user.id)
+  user: User;
+
+  @ManyToOne(() => Product, (product) => product.id)
+  product: Product;
+  @AfterInsert()
+  Insertlog() {
+    console.log('Order is placed with id', this.id);
+  }
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Order is updated with id', this.id);
+  }
+  @AfterRemove()
+  logRemove() {
+    console.log('Order is canceled with id', this.id);
+  }
 }

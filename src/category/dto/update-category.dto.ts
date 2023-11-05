@@ -1,11 +1,7 @@
-import { IsCurrency, IsEmail,IsString, IsNumber,IsOptional} from "class-validator";
+import { IsEmail, IsOptional } from 'class-validator';
 
-export class UpdateCategoryDto{
-    @IsString()
-    @IsOptional()
-    categoryCode:string
-    @IsEmail()
-    @IsOptional()
-    category:string
-   
+export class UpdateCategoryDto {
+  @IsEmail()
+  @IsOptional()
+  name: string;
 }

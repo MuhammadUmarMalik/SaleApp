@@ -1,14 +1,14 @@
-import { IsCurrency, IsEmail,IsString, IsNumber} from "class-validator";
+import { IsCurrency, IsEmail, IsString, IsNumber } from 'class-validator';
 
-export class CreateProductDto{
-    @IsString()
-    productName:string
-    @IsString()
-    category:string
-    @IsNumber()
-    price:number
-    @IsNumber()
-    retail:number
-    @IsNumber()
-    quantity:number
+export class CreateProductDto {
+  @IsString()
+  name: string;
+  @IsNumber()
+  category: string;
+  @IsNumber()
+  price: number;
+  @IsNumber()
+  retail: number;
+  @IsNumber()
+  quantity: number;
 }

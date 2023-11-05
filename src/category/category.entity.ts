@@ -1,34 +1,52 @@
 import { Product } from 'src/products/product.entity';
-import {AfterInsert,AfterUpdate,AfterRemove,Entity,Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm';
+import {
+  AfterInsert,
+  AfterUpdate,
+  AfterRemove,
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
+} from 'typeorm';
 
 @Entity()
-export class Category{
-    
-    @PrimaryGeneratedColumn()
-    id:number;
+export class Category {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    categoryCode:string;
+  @Column()
+  name: string;
 
-    @Column()
-    category:string;
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
+  public created_at: Date;
 
-   
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+    onUpdate: 'CURRENT_TIMESTAMP(6)',
+  })
+  public updated_at: Date;
 
-    @ManyToOne(()=>Product,(product)=>product.id)
-    product:Product;
+  @AfterInsert()
+  Insertlog() {
+    console.log('Category is generated with id', this.id);
+  }
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Category is updated with id', this.id);
+  }
+  @AfterRemove()
+  logRemove() {
+    console.log('Category is removed with id', this.id);
+  }
 
-
-    @AfterInsert()
-    Insertlog(){
-        console.log('Category is generated with id',this.id)
-    }
-    @AfterUpdate()
-    logUpdate(){
-        console.log('Category is updated with id',this.id)
-    }
-    @AfterRemove()
-    logRemove(){
-        console.log('Category is removed with id',this.id)
-    }
+  @ManyToOne(() => Product, (product) => product.products)
+  product: Product;
 }
