@@ -42,12 +42,14 @@ export class ProductsController {
     }
     return product;
   }
-  @Get('/show-all')
-  findAll(
+  @Get()
+  async findAll(
     @Query('take') take: number = 10,
     @Query('skip') skip: number = 0,
-  ): Observable<Product[]> {
+  ): Promise<Observable<Product[]>> {
     take = take > 20 ? 20 : take;
+    console.log(this.productsService.findAll(take, skip));
+
     return this.productsService.findAll(take, skip);
   }
 

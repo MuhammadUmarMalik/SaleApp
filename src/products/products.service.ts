@@ -1,5 +1,4 @@
 import { Category } from 'src/category/category.entity';
-// import { Category } from './../category/category.entity';
 import { CategoryService } from './../category/category.service';
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
@@ -19,20 +18,22 @@ export class ProductsService {
     retail: number,
     quantity: number,
   ) {
-    const product = await this.repo.create({
+    const product = this.repo.create({
       name,
       categoryId,
       price,
       retail,
       quantity,
     });
-    console.log(this.repo);
-    return this.repo.save(product);
+    return await this.repo.save(product);
   }
-  findOne(id: number) {
-    return this.repo.findOneBy({ id });
+  async findOne(id: number) {
+    return await this.repo.findOneBy({ id });
   }
-  findAll(take: number = 10, skip: number = 0): Observable<Product[]> {
+  async findAll(
+    take: number = 10,
+    skip: number = 0,
+  ): Promise<Observable<Product[]>> {
     return from(
       this.repo.findAndCount({ take, skip }).then(([products]) => {
         return <Product[]>products;
@@ -46,13 +47,16 @@ export class ProductsService {
       throw error('user is not found');
     }
     Object.assign(product, attrs);
-    return this.repo.save(product);
+    await this.repo.save(product);
+    return 'your product is updated.';
   }
   async remove(id: number) {
     const product = await this.findOne(id);
     if (!product) {
-      throw error('user is not found');
+      throw error('Product is not found');
     }
-    return this.repo.remove(product);
+
+    await this.repo.remove(product);
+    return 'your product is deleted';
   }
 }

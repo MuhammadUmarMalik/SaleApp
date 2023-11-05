@@ -9,13 +9,19 @@ import { Observable, from, throwError } from 'rxjs';
 export class OrdersService {
   constructor(@InjectRepository(Order) private repo: Repository<Order>) {}
 
-  create(
+  async create(
     product_name: string,
     destination: string,
     order_date: Date,
     items: number,
     phone_number: number,
   ) {
+    const product = await this.repo.findOneByOrFail({ product_name });
+
+    if (!product) {
+      throw error('Product is not found');
+    }
+
     const order = this.repo.create({
       product_name,
       destination,
@@ -41,18 +47,20 @@ export class OrdersService {
   }
 
   async update(id: number, attrs: Partial<Order>) {
-    const user = await this.findOne(id);
-    if (!user) {
-      throw error('user is not found');
+    const order = await this.findOne(id);
+    if (!order) {
+      throw error('order is not found');
     }
-    Object.assign(user, attrs);
-    return this.repo.save(user);
+    Object.assign(order, attrs);
+    this.repo.save(order);
+    return 'your order is updated';
   }
   async remove(id: number) {
-    const user = await this.findOne(id);
-    if (!user) {
-      throw error('user is not found');
+    const order = await this.findOne(id);
+    if (!order) {
+      throw error('order is not found');
     }
-    return this.repo.remove(user);
+    this.repo.remove(order);
+    return 'your order is deleted';
   }
 }

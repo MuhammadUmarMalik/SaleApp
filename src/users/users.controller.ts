@@ -26,12 +26,7 @@ import { UserDto } from './dto/users.dtos';
 import { CreateSigninDto } from './dto/create-signin.dto';
 import { CurrentUser } from './decorator/current-user.decorator';
 import { AuthGuards } from 'src/guards/auth.guard';
-import {
-  IPaginationOptions,
-  Pagination,
-  IPaginationMeta,
-  paginate,
-} from 'nestjs-typeorm-paginate';
+
 import { Observable } from 'rxjs';
 
 @Controller('auth')
