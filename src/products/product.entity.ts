@@ -12,6 +12,7 @@ import {
   OneToMany,
   JoinColumn,
   ManyToOne,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -20,7 +21,7 @@ export class Product {
   id: number;
 
   @Column()
-  categoryId: string;
+  categoryId: number;
 
   @Column()
   name: string;
@@ -47,11 +48,14 @@ export class Product {
   })
   public updated_at: Date;
 
+  //relationship
   @OneToMany(() => Order, (order) => order.id)
+  @JoinTable()
   order: Order[];
 
-  @OneToMany(() => Product, (product) => product.categoryId)
-  products: Product[];
+  @OneToMany(() => Category, (category) => category.id)
+  @JoinTable()
+  category: Category[];
 
   @AfterInsert()
   Insertlog() {

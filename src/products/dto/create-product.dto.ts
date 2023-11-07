@@ -4,7 +4,7 @@ export class CreateProductDto {
   @IsString()
   name: string;
   @IsNumber()
-  category: string;
+  categoryId: number;
   @IsNumber()
   price: number;
   @IsNumber()

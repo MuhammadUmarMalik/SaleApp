@@ -8,6 +8,8 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
   ManyToOne,
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { User } from 'src/users/user.entity';
@@ -23,7 +25,10 @@ export class Order {
   @Column()
   destination: string;
 
-  @Column()
+  @CreateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP(6)',
+  })
   order_date: Date;
 
   @Column()
@@ -31,6 +36,8 @@ export class Order {
 
   @Column()
   phone_number: number;
+  @Column()
+  delivery_status: string;
 
   @CreateDateColumn({
     type: 'timestamp',
@@ -46,9 +53,10 @@ export class Order {
   public updated_at: Date;
 
   @ManyToOne(() => User, (user) => user.id)
+  @JoinTable()
   user: User;
-
   @ManyToOne(() => Product, (product) => product.id)
+  @JoinTable()
   product: Product;
   @AfterInsert()
   Insertlog() {

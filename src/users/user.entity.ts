@@ -12,6 +12,8 @@ import {
   OneToMany,
   Like,
   Repository,
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 @Entity()
@@ -48,8 +50,10 @@ export class User {
   })
   public updated_at: Date;
 
+  //relationship
   @OneToMany(() => Order, (order) => order.id)
-  orders: Order[];
+  @JoinTable()
+  order: Order[];
 
   @AfterInsert()
   Insertlog() {

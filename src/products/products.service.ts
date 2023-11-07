@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './product.entity';
 import { error } from 'console';
 import { Observable, from, throwError } from 'rxjs';
+import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class ProductsService {
@@ -13,7 +14,7 @@ export class ProductsService {
 
   async create(
     name: string,
-    categoryId: string,
+    categoryId: number,
     price: number,
     retail: number,
     quantity: number,
@@ -25,6 +26,7 @@ export class ProductsService {
       retail,
       quantity,
     });
+
     return await this.repo.save(product);
   }
   async findOne(id: number) {

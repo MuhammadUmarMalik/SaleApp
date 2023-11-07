@@ -22,13 +22,14 @@ export class OrdersController {
 
   @Post('/new-order')
   createUser(@Body() body: CreateOrderDto) {
-    this.ordersService.create(
+    const order = this.ordersService.create(
       body.product_name,
       body.destination,
-      body.order_date,
       body.items,
       body.phone_number,
+      body.delivery_status,
     );
+    return order;
   }
   @Get('/:id')
   async findUser(@Param('id') id: string) {
@@ -50,13 +51,12 @@ export class OrdersController {
     take = take > 20 ? 20 : take;
     return this.ordersService.findAll(take, skip);
   }
+  @Patch('/:id')
+  async updateOrder(@Param('id') id: string, @Body() body: UpdateOrderDto) {
+    const order = await this.ordersService.update(parseInt(id), body);
+  }
   @Delete('/:id')
   removeUser(@Param('id') id: string) {
     this.ordersService.remove(parseInt(id));
-  }
-
-  @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: UpdateOrderDto) {
-    this.ordersService.update(parseInt(id), body);
   }
 }

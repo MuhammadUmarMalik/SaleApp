@@ -27,7 +27,7 @@ export class ProductsController {
   async createProduct(@Body() body: CreateProductDto) {
     const product = await this.productsService.create(
       body.name,
-      body.category,
+      body.categoryId,
       body.price,
       body.retail,
       body.quantity,

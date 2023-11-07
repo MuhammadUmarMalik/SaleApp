@@ -10,9 +10,9 @@ export class UpdateProductDto {
   @IsString()
   @IsOptional()
   name: string;
-  @IsEmail()
+  @IsNumber()
   @IsOptional()
-  category: string;
+  categoryId: number;
   @IsCurrency()
   @IsOptional()
   price: number;

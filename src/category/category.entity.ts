@@ -11,6 +11,7 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
@@ -33,6 +34,9 @@ export class Category {
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
   public updated_at: Date;
+  @OneToMany(() => Product, (product) => product.id)
+  @JoinTable()
+  product: Product;
 
   @AfterInsert()
   Insertlog() {
@@ -46,7 +50,4 @@ export class Category {
   logRemove() {
     console.log('Category is removed with id', this.id);
   }
-
-  @ManyToOne(() => Product, (product) => product.products)
-  product: Product;
 }
